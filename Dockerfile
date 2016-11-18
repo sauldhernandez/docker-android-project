@@ -1,7 +1,7 @@
 # based on https://registry.hub.docker.com/u/samtstern/android-sdk/dockerfile/ with openjdk-8
 FROM openjdk:8
 
-MAINTAINER FUJI Goro <g.psy.va+github@gmail.com>
+MAINTAINER Noel Mansour
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -20,14 +20,8 @@ ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
 # Install Android SDK components
 
-# License Id: android-sdk-license-ed0d0a5b
-ENV ANDROID_COMPONENTS platform-tools,build-tools-23.0.3,build-tools-24.0.0,build-tools-24.0.2,android-23,android-24
-# License Id: android-sdk-license-5be876d5
-ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository
+ENV ANDROID_COMPONENTS tools,platform-tools,build-tools-25.0.0,android-25
+ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services
 
-RUN echo y | android update sdk --no-ui --all --filter "${ANDROID_COMPONENTS}" ; \
-    echo y | android update sdk --no-ui --all --filter "${GOOGLE_COMPONENTS}"
-
-# Support Gradle
-ENV TERM dumb
-
+RUN echo y | android update sdk --no-ui --filter "${ANDROID_COMPONENTS}" ; \
+    echo y | android update sdk --no-ui --filter "${GOOGLE_COMPONENTS}"

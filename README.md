@@ -18,7 +18,7 @@ No `ant`, `maven`, nor `android-ndk` are included.
 
 # Author
 
-FUJI Goro (gfx) <g.psy.va+github@gmail.com>
+Noel Mansour
 
 # License
 
