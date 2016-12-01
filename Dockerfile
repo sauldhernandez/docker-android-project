@@ -24,4 +24,8 @@ ENV ANDROID_COMPONENTS platform-tools,build-tools-25.0.1,android-25
 ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services
 
 RUN echo y | android update sdk --no-ui --filter "${ANDROID_COMPONENTS}" ; \
-    echo y | android update sdk --no-ui --filter "${GOOGLE_COMPONENTS}"
+    echo y | android update sdk --no-ui --filter "${GOOGLE_COMPONENTS}" ; \
+    mkdir -p "$ANDROID_SDK/licenses"; \
+    echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"; \
+    echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_SDK/licenses/android-sdk-preview-license"
+
