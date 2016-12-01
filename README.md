@@ -12,6 +12,10 @@ No `ant`, `maven`, nor `android-ndk` are included.
 
 ## Maintainance
 
+* If using com.android.support.constraint:constraint-layout, you need to run
+  your gradle task twice (or another that will fetch deps)
+  e.g. `./gradlew dependencies || true && ./gradlew assembleDebug`
+  See https://code.google.com/p/android/issues/detail?id=212128 for details. 
 * Just rebuild it for minor updates
 * Update components for major updates
   * You can find component ids by `android list sdk --all --extended`
