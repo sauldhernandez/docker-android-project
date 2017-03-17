@@ -6,7 +6,7 @@ No `ant`, `maven`, nor `android-ndk` are included.
 ## Included
 
 * OpenJDK 8
-* Android SDK
+* Android SDK (sdkmanager)
 * Android Support Libraries
 * Google Play Services
 
@@ -15,7 +15,7 @@ No `ant`, `maven`, nor `android-ndk` are included.
 * If using com.android.support.constraint:constraint-layout, com.android.tools.build:gradle 2.3.0 or later is required.
 * Just rebuild it for minor updates
 * Update components for major updates
-  * You can find component ids by `android list sdk --all --extended`
+  * You can find component ids by `sdkmanager --list`
 
 # Author
 

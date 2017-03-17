@@ -11,22 +11,23 @@ RUN dpkg --add-architecture i386 && \
     apt-get install -yq libc6:i386 libstdc++6:i386 zlib1g:i386 libncurses5:i386 --no-install-recommends && \
     apt-get clean
 
+# Set android env varibales
+ENV ANDROID_HOME /usr/local/android-sdk
+ENV ANDROID_SDK /usr/local/android-sdk
+ENV PATH $ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+
 # Download and untar SDK
-ENV ANDROID_SDK_URL http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
-RUN curl -L "${ANDROID_SDK_URL}" | tar --no-same-owner -xz -C /usr/local
-ENV ANDROID_HOME /usr/local/android-sdk-linux
-ENV ANDROID_SDK /usr/local/android-sdk-linux
-ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
+ENV ANDROID_SDK_URL https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
+RUN mkdir -p /usr/local/android-sdk
+WORKDIR /usr/local/android-sdk
+RUN wget "${ANDROID_SDK_URL}" 
+RUN unzip tools_r25.2.3-linux.zip
 
 # Install Android SDK components
-ENV ANDROID_COMPONENTS platform-tools,build-tools-25.0.2,android-25
-ENV GOOGLE_COMPONENTS extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services
+RUN (while sleep 1; do echo "y"; done) | sdkmanager "platform-tools" "build-tools;25.0.2" "platforms;android-25" "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services" "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
 
-# Required for ConstraintLayout license
-RUN mkdir -p "${ANDROID_SDK}/licenses"; \
-    echo "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${ANDROID_SDK}/licenses/android-sdk-license"; \
-    echo "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${ANDROID_SDK}/licenses/android-sdk-preview-license"
+# Make sure it's up to date
+RUN (while sleep 1; do echo "y"; done) | sdkmanager --update
 
-RUN echo y | android update sdk --no-ui --filter "${ANDROID_COMPONENTS}" ; \
-    echo y | android update sdk --no-ui --filter "${GOOGLE_COMPONENTS}"
-
+# Accept all licenses
+RUN (while sleep 1; do echo "y"; done) | sdkmanager --licenses
