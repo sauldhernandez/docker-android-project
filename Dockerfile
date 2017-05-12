@@ -24,7 +24,7 @@ RUN wget "${ANDROID_SDK_URL}"
 RUN unzip tools_r25.2.3-linux.zip
 
 # Install Android SDK components
-RUN (while sleep 1; do echo "y"; done) | sdkmanager "platform-tools" "build-tools;25.0.2" "platforms;android-25" "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services" "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+RUN (while sleep 1; do echo "y"; done) | sdkmanager "platform-tools" "build-tools;25.0.3" "platforms;android-25" "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services" "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
 
 # Make sure it's up to date
 RUN (while sleep 1; do echo "y"; done) | sdkmanager --update
